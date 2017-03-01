@@ -21,10 +21,10 @@
             在事件处理函数中
             获取aqi-input输入的值，并显示在aqi-display中
             */
-            document.getElementById('button').onclick = function () {
-                var inputValue = document.getElementById('aqi-input').value;
+            document.getElementById('button').onclick = function () {         //给button绑定点击事件
+                var inputValue = document.getElementById('aqi-input').value;  //获取input框输入值
                 if (inputValue) {
-                    document.getElementById('aqi-display').innerHTML = inputValue;
+                    document.getElementById('aqi-display').innerHTML = inputValue;   //输出文字
                 } else {
                     alert("请填写内容")
                 }
