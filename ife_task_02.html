@@ -42,13 +42,7 @@
             }
             //对新数组数据进行排序
             arrayList.sort(function (a, b) {
-                if (a[1] > b[1]) {
-                    return 1;
-                }
-                if (a[1] < b[1]) {
-                    return -1
-                }
-                return 0;
+               return a[1]-b[1];
             })
             //生成列表html
             for (var i = 0, l = arrayList.length; i < l; i++) {
