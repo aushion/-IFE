@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>task_04</title>
+    <style>
+        .wrap {
+            margin: auto;
+            height: 70px;
+            min-width: 400px;
+        }
+        
+        button {
+            border-radius: 4px;
+        }
+        
+        #numList {
+            margin-top: 10px;
+            min-width: 400px;
+            overflow: hidden;
+        }
+        
+        .numbers {
+            background-color: #f00;
+            color: #fff;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            padding: 10px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <input type="text" id="newNum">
+        <button id="leftIn">左侧入</button>
+        <button id="rightIn">右侧入</button>
+        <button id="leftOut">左侧出</button>
+        <button id="rightOut">右侧出</button>
+        <div id="numList">
+
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var numList = document.getElementById("numList");
+        var leftInBtn = document.getElementById('leftIn');
+        var rightInBtn = document.getElementById('rightIn');
+        var leftOutBtn = document.getElementById('leftOut');
+        var rightOutBtn = document.getElementById('rightOut');
+
+        var createNewNumber = function () {
+            var newNum = Number(document.getElementById('newNum').value);
+            if (newNum) {
+                var numNode = document.createElement('div');
+                numNode.className = "numbers";
+                if (typeof newNum === 'number') {
+                    numNode.innerText = newNum;
+                }
+                return numNode;
+            }
+
+        }
+        var insertAfter = function (newElement, targetElement) {
+            var parent = targetElement.parentNode;
+            if (parent.lastChild === targetElement) {
+                parent.appendChild(newElement);
+            } else {
+                parent.insertBefore(newElement, targetElement.nextSibling)
+            }
+        }
+        var leftIn = function (parent, newElement) {
+            if (newElement) {
+                if (parent.hasChildNodes()) {
+                    parent.insertBefore(newElement, parent.firstChild);
+                } else {
+                    parent.appendChild(newElement);
+                }
+            } else {
+                alert("请填写数字")
+            }
+
+        };
+
+        var rightIn = function (parent, newElement) {
+            if (newElement) {
+                if (parent.hasChildNodes()) {
+                    insertAfter(newElement, parent.lastChild);
+                } else {
+                    parent.appendChild(newElement);
+                }
+            } else {
+                alert("请填写数字")
+            }
+
+        };
+
+        var leftOut = function (parent) {
+            if (parent.hasChildNodes()) {
+                parent.removeChild(parent.firstChild)
+            } else {
+                alert("删光了")
+            }
+        };
+
+        var rightOut = function (parent) {
+            if (parent.hasChildNodes()) {
+                parent.removeChild(parent.lastChild)
+            } else {
+                alert("删光了")
+            }
+        };
+        // var bindClick = function(button,func){
+        //     button.onclick = func;
+        // }
+        // bindClick(leftInBtn,leftIn(numList,createNewNumber()))
+
+        leftInBtn.onclick = function () {
+            leftIn(numList, createNewNumber())
+        };
+        leftOutBtn.onclick = function () {
+            leftOut(numList);
+        };
+        rightInBtn.onclick = function () {
+            rightIn(numList, createNewNumber());
+        }
+        rightOutBtn.onclick = function () {
+            rightOut(numList);
+        }
+
+        var numNode = document.getElementsByClassName('numbers');
+
+        numNode.onclick = function () {
+            numNode[i].parentNode.removeChild(numNode[i])
+        }
+
+
+
+    }
+</script>
+
+</html>
