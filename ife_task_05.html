@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>task_05</title>
+    <style>
+        .wrap {
+            margin: auto;
+            height: 70px;
+            min-width: 400px;
+        }
+        
+        button {
+            border-radius: 4px;
+        }
+        
+        #numList {
+            margin-top: 10px;
+            min-width: 400px;
+            overflow: hidden;
+        }
+        
+        .numbers {
+            background-color: #f00;
+            color: #fff;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            width: 20px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <input type="text" id="newNum">
+        <button id="leftIn">左侧入</button>
+        <button id="rightIn">右侧入</button>
+        <button id="leftOut">左侧出</button>
+        <button id="rightOut">右侧出</button>
+        <button id="sort">排序</button>
+        <div id="numList">
+
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        var numList = document.getElementById("numList");
+        var leftInBtn = document.getElementById('leftIn');
+        var rightInBtn = document.getElementById('rightIn');
+        var leftOutBtn = document.getElementById('leftOut');
+        var rightOutBtn = document.getElementById('rightOut');
+        var number = document.getElementById("newNum");
+
+
+        //创建数字节点
+        var createNewNumber = function () {
+            var newNum = Number(document.getElementById('newNum').value);
+            if (newNum >= 10 && newNum <= 100) {
+                var numNode = document.createElement('div');
+                numNode.className = "numbers";
+                if (typeof newNum === 'number') {
+                    numNode.style.height = newNum + "px";
+                }
+                return numNode;
+            } else {
+                alert("请输入大小介于10和100之间的数字");
+                return false;
+            }
+
+        }
+
+
+
+        //向后插入元素节点方法
+        var insertAfter = function (newElement, targetElement) {
+            var parent = targetElement.parentNode;
+            if (parent.lastChild === targetElement) {
+                parent.appendChild(newElement);
+            } else {
+                parent.insertBefore(newElement, targetElement.nextSibling)
+            }
+        }
+        //左侧入
+        var leftIn = function (parent, newElement) { //参数为父节点，和新插入的元素节点
+            var clength = parent.childNodes.length;
+
+            if (newElement) {
+                if (clength > 0 && clength <= 60) {
+                    parent.insertBefore(newElement, parent.firstChild);
+                } else if (clength === 0) {
+                    parent.appendChild(newElement);
+                } else {
+                    alert("不能超过60个元素")
+                    return;
+                }
+            } else {
+                return false
+            }
+        };
+        //右入
+        var rightIn = function (parent, newElement) { //参数为父节点，和新插入的元素节点
+            var clength = parent.childNodes.length;
+            if (newElement) {
+                if (clength > 0 && clength <= 60) {
+                    insertAfter(newElement, parent.lastChild);
+                } else if (clength === 0) {
+                    parent.appendChild(newElement);
+                } else {
+                    alert("不能超过60个元素");
+                    return ;
+                }
+            } else {
+                return false;
+            }
+        };
+        //左出
+        var leftOut = function (parent) {
+            if (parent.hasChildNodes()) {
+                parent.removeChild(parent.firstChild)
+            } else {
+                alert("删光了")
+            }
+        };
+        //右出
+        var rightOut = function (parent) {
+            if (parent.hasChildNodes()) {
+                parent.removeChild(parent.lastChild)
+            } else {
+                alert("删光了")
+            }
+        };
+
+
+        leftInBtn.onclick = function () {
+            leftIn(numList, createNewNumber())
+        };
+        leftOutBtn.onclick = function () {
+
+            leftOut(numList);
+        };
+        rightInBtn.onclick = function () {
+
+            rightIn(numList, createNewNumber());
+        }
+        rightOutBtn.onclick = function () {
+
+            rightOut(numList);
+        }
+        //事件委托，删除自身元素
+        numList.onclick = function () {
+            var ev = ev || window.event;
+            var target = ev.target || ev.srcElement;
+            target.parentNode.removeChild(target);
+        }
+
+        //maopao
+        document.getElementById("sort").onclick = function(){
+            var arr = [];
+            var numbers = document.getElementsByClassName("numbers")
+            
+            for(let i = 0;i<numbers.length;i++){
+               arr.push(parseInt(numbers[i].style.height));
+            }
+            for(let i = 0,l = arr.length;i<l-1;i++ ){
+                for(let j = 0,l = arr.length;j<l-1-i;j++){
+                    if(arr[j]>arr[j+1]){
+                        var temp = arr[j];
+                        arr[j] = arr[j+1];
+                        arr[j+1] = temp;
+                    }
+                }
+            }
+           for(let i = 0;i<arr.length;i++){
+               numbers[i].style.height = arr[i]+"px";
+           }
+        }
+    }
+</script>
+
+</html>
