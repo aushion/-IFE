@@ -53,7 +53,8 @@
         var leftOutBtn = document.getElementById('leftOut');
         var rightOutBtn = document.getElementById('rightOut');
 
-        var createNewNumber = function () {
+        //创建数字节点
+        var createNewNumber = function () {   
             var newNum = Number(document.getElementById('newNum').value);
             if (newNum) {
                 var numNode = document.createElement('div');
@@ -65,7 +66,9 @@
             }
 
         }
-        var insertAfter = function (newElement, targetElement) {
+
+        //向后插入元素节点方法
+        var insertAfter = function (newElement, targetElement) {    
             var parent = targetElement.parentNode;
             if (parent.lastChild === targetElement) {
                 parent.appendChild(newElement);
@@ -73,7 +76,8 @@
                 parent.insertBefore(newElement, targetElement.nextSibling)
             }
         }
-        var leftIn = function (parent, newElement) {
+        //左侧入
+        var leftIn = function (parent, newElement) { //参数为父节点，和新插入的元素节点
             if (newElement) {
                 if (parent.hasChildNodes()) {
                     parent.insertBefore(newElement, parent.firstChild);
@@ -85,8 +89,8 @@
             }
 
         };
-
-        var rightIn = function (parent, newElement) {
+        //右入
+        var rightIn = function (parent, newElement) { //参数为父节点，和新插入的元素节点
             if (newElement) {
                 if (parent.hasChildNodes()) {
                     insertAfter(newElement, parent.lastChild);
@@ -98,7 +102,7 @@
             }
 
         };
-
+        //左出
         var leftOut = function (parent) {
             if (parent.hasChildNodes()) {
                 parent.removeChild(parent.firstChild)
@@ -106,7 +110,7 @@
                 alert("删光了")
             }
         };
-
+        //右出
         var rightOut = function (parent) {
             if (parent.hasChildNodes()) {
                 parent.removeChild(parent.lastChild)
@@ -114,32 +118,30 @@
                 alert("删光了")
             }
         };
-        // var bindClick = function(button,func){
-        //     button.onclick = func;
-        // }
-        // bindClick(leftInBtn,leftIn(numList,createNewNumber()))
+        
 
         leftInBtn.onclick = function () {
+
             leftIn(numList, createNewNumber())
         };
         leftOutBtn.onclick = function () {
+
             leftOut(numList);
         };
         rightInBtn.onclick = function () {
+
             rightIn(numList, createNewNumber());
         }
         rightOutBtn.onclick = function () {
+
             rightOut(numList);
         }
-
-        var numNode = document.getElementsByClassName('numbers');
-
-        numNode.onclick = function () {
-            numNode[i].parentNode.removeChild(numNode[i])
+        //事件委托，删除自身元素
+        numList.onclick = function () {
+            var ev = ev || window.event;
+            var target = ev.target || ev.srcElement;
+            target.parentNode.removeChild(target);
         }
-
-
-
     }
 </script>
 
