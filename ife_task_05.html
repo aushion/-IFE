@@ -111,7 +111,7 @@
                     parent.appendChild(newElement);
                 } else {
                     alert("不能超过60个元素");
-                    return ;
+                    return;
                 }
             } else {
                 return false;
@@ -157,26 +157,26 @@
             target.parentNode.removeChild(target);
         }
 
-        //maopao
-        document.getElementById("sort").onclick = function(){
+        //冒泡
+        document.getElementById("sort").onclick = function () {
             var arr = [];
             var numbers = document.getElementsByClassName("numbers")
-            
-            for(let i = 0;i<numbers.length;i++){
-               arr.push(parseInt(numbers[i].style.height));
+
+            for (let i = 0; i < numbers.length; i++) {
+                arr.push(parseInt(numbers[i].style.height));
             }
-            for(let i = 0,l = arr.length;i<l-1;i++ ){
-                for(let j = 0,l = arr.length;j<l-1-i;j++){
-                    if(arr[j]>arr[j+1]){
+            for (let i = 0, l = arr.length; i < l - 1; i++) {
+                for (let j = 0, l = arr.length; j < l - 1 - i; j++) {
+                    if (arr[j] > arr[j + 1]) {
                         var temp = arr[j];
-                        arr[j] = arr[j+1];
-                        arr[j+1] = temp;
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
                     }
                 }
             }
-           for(let i = 0;i<arr.length;i++){
-               numbers[i].style.height = arr[i]+"px";
-           }
+            for (let i = 0; i < arr.length; i++) {
+                numbers[i].style.height = arr[i] + "px";
+            }
         }
     }
 </script>
